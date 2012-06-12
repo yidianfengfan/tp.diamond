@@ -151,10 +151,10 @@ public class ConfigService {
 	 * @param srcIp
 	 * @param srcUser
 	 */
-	public void addConfigInfo(String dataId, String group, String userName, String content) {
+	public void addConfigInfo(String dataId, String group, String userName, String content, String description) {
 		checkOperation("addConfigInfo");
 		checkParameter(dataId, group, content);
-		ConfigInfo configInfo = new ConfigInfo(dataId, group, userName, content);
+		ConfigInfo configInfo = new ConfigInfo(dataId, group, userName, content, description);
 
 		// 获取当前时间
 		Timestamp currentTime = DiamondUtils.getCurrentTime();
@@ -181,10 +181,10 @@ public class ConfigService {
 	 * @param group
 	 * @param content
 	 */
-	public void updateConfigInfo(String dataId, String group, String content, String userName) {
+	public void updateConfigInfo(String dataId, String group, String content, String userName, String description) {
 		checkOperation("updateConfigInfo");
 		checkParameter(dataId, group, content);
-		ConfigInfo configInfo = new ConfigInfo(dataId, group, userName, content);
+		ConfigInfo configInfo = new ConfigInfo(dataId, group, userName, content, description);
 
 		Timestamp currentTime = DiamondUtils.getCurrentTime();
 		// 先更新数据库，再更新磁盘

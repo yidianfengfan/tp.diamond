@@ -59,6 +59,7 @@ public class DBPersistService implements PersistService {
 			info.setUserName(rs.getString("username"));
 			info.setContent(rs.getString("content"));
 			info.setMd5(rs.getString("md5"));
+			info.setDescription(rs.getString("description"));
 			return info;
 		}
 	}
@@ -68,7 +69,7 @@ public class DBPersistService implements PersistService {
 	public void addConfigInfo(final Timestamp time, final ConfigInfo configInfo) {
 
 		this.jt.update(
-				"insert into config_info (data_id,group_id, username, content,md5,gmt_create,gmt_modified) values(?,?,?,?,?,?,?)",
+				"insert into config_info (data_id,group_id, username, content,md5,gmt_create,gmt_modified, description) values(?,?,?,?,?,?,?,?)",
 				new PreparedStatementSetter() {
 					public void setValues(PreparedStatement ps)
 							throws SQLException {
@@ -80,6 +81,7 @@ public class DBPersistService implements PersistService {
 						ps.setString(index++, configInfo.getMd5());
 						ps.setTimestamp(index++, time);
 						ps.setTimestamp(index++, time);
+						ps.setString(index++, configInfo.getDescription());
 					}
 
 				});
@@ -116,7 +118,7 @@ public class DBPersistService implements PersistService {
 			final ConfigInfo configInfo) {
 
 		this.jt.update(
-				"update config_info set content=?,md5=?,gmt_modified=? where data_id=? and group_id=?",
+				"update config_info set content=?,md5=?,gmt_modified=?,description=? where data_id=? and group_id=?",
 				new PreparedStatementSetter() {
 
 					public void setValues(PreparedStatement ps)
@@ -125,6 +127,7 @@ public class DBPersistService implements PersistService {
 						ps.setString(index++, configInfo.getContent());
 						ps.setString(index++, configInfo.getMd5());
 						ps.setTimestamp(index++, time);
+						ps.setString(index++, configInfo.getDescription());
 						ps.setString(index++, configInfo.getDataId());
 						ps.setString(index++, configInfo.getGroup());
 					}
@@ -137,7 +140,7 @@ public class DBPersistService implements PersistService {
 		try {
 			return (ConfigInfo) this.jt
 					.queryForObject(
-							"select ID,data_id,group_id,username,content,md5 from config_info where group_id=? and data_id=?",
+							"select ID,data_id,group_id,username,content,md5,description from config_info where group_id=? and data_id=?",
 							new Object[] { group, dataId },
 							CONFIG_INFO_ROW_MAPPER);
 		} catch (DataAccessException e) {
@@ -157,7 +160,7 @@ public class DBPersistService implements PersistService {
 		try {
 			return (ConfigInfo) this.jt
 					.queryForObject(
-							"select ID,data_id,group_id,content,md5,username from config_info where ID=?",
+							"select ID,data_id,group_id,content,md5,username,description from config_info where ID=?",
 							new Object[] { id }, CONFIG_INFO_ROW_MAPPER);
 		} catch (DataAccessException e) {
 			if (!(e instanceof EmptyResultDataAccessException)) {
@@ -178,7 +181,7 @@ public class DBPersistService implements PersistService {
 
 		PaginationHelper<ConfigInfo> helper = new PaginationHelper<ConfigInfo>();
 		String sqlCountRows = "select count(ID) from config_info ";
-		String sqlFetchRows = "select ID,data_id,group_id,content,md5,username from config_info ";
+		String sqlFetchRows = "select ID,data_id,group_id,content,md5,username,description from config_info ";
 		if(!"admin".equals(userName)) {
 			sqlCountRows += "where username = ? ";
 			sqlFetchRows += "where username = ? ";

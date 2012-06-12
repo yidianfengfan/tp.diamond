@@ -20,19 +20,27 @@
 <table class="table table-striped table-bordered">
   	<thead>
     	<tr>
-      		<th>group</th>
-      		<th>dataId</th>
-      		<th>操作</th>
+      		<th width="100px">group</th>
+      		<th width="100px">dataId</th>
+      		<th width="100px">所属用户</th>
+      		<th>描述</th>
+      		<th width="200px">操作</th>
     	</tr>
   	</thead>
   	<tbody>
     	<c:forEach items="${page.pageItems}" var="configInfo">
 			<tr>
-              	<td name="tagGroup">
+              	<td>
                   	<c:out value="${configInfo.group}" escapeXml="false"/>
                	</td>
-               	<td name="tagDataID">
+               	<td>
               		<c:out value="${configInfo.dataId}"/>
+               	</td>
+               	<td>
+              		<c:out value="${configInfo.userName}"/>
+               	</td>
+               	<td>
+              		<c:out value="${configInfo.description}"/>
                	</td>
               	<c:url var="getConfigInfoUrl" value="/admin/detailConfig" >
                   	<c:param name="group" value="${configInfo.group}" />

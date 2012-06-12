@@ -30,7 +30,7 @@ public class ConfigInfo implements Serializable, Comparable<ConfigInfo> {
     private String group;
     private long id;
     private String userName;
-
+    private String description;
 
     public ConfigInfo() {
 
@@ -46,82 +46,77 @@ public class ConfigInfo implements Serializable, Comparable<ConfigInfo> {
         }
     }
 
-    public ConfigInfo(String dataId, String group, String userName, String content) {
+    public ConfigInfo(String dataId, String group, String userName, String content, String description) {
         super();
         this.dataId = dataId;
         this.content = content;
         this.group = group;
         this.userName = userName;
+        this.description = description;
         if (this.content != null) {
             this.md5 = MD5.getInstance().getMD5String(this.content);
         }
     }
 
-
     public long getId() {
         return id;
     }
-
 
     public void setId(long id) {
         this.id = id;
     }
 
-
     public String getDataId() {
         return dataId;
     }
-
 
     public void setDataId(String dataId) {
         this.dataId = dataId;
     }
 
-
     public String getGroup() {
         return group;
     }
-
 
     public void setGroup(String group) {
         this.group = group;
     }
 
-
     public String getContent() {
         return content;
     }
-
 
     public void setContent(String content) {
         this.content = content;
     }
 
-
     public void dump(PrintWriter writer) {
         writer.write(this.content);
     }
-
 
     public String getMd5() {
         return md5;
     }
 
-
     public void setMd5(String md5) {
         this.md5 = md5;
     }
-
     
     public String getUserName() {
 		return userName;
 	}
 
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public int compareTo(ConfigInfo o) {
         if (o == null)

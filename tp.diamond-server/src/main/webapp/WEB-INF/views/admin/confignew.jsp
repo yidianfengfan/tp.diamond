@@ -20,7 +20,11 @@
      	<input type="text" class="input-xlarge" name="dataId">
    	</div>
    	<div class="control-group">
- 		<label class="control-label">dataId：</label>
+ 		<label class="control-label">描述：</label>
+     	<input type="text" class="input-xlarge" name="description">
+   	</div>
+   	<div class="control-group">
+ 		<label class="control-label">配置信息：</label>
      	<textarea rows="20" id="textarea" class="input-xlarge" name="content" style="width: 80%"></textarea>
    	</div>
    	<div class="form-actions">

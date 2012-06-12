@@ -69,6 +69,7 @@ public class AdminController {
 			HttpServletResponse response,
 			@RequestParam("dataId") String dataId,
 			@RequestParam("group") String group,
+			@RequestParam("description") String description,
 			@RequestParam("content") String content, ModelMap modelMap) {
 		response.setCharacterEncoding("GBK");
 
@@ -98,7 +99,7 @@ public class AdminController {
 			return "/admin/confignew";
 		}
 		String userName = (String) request.getSession().getAttribute("user");
-		this.configService.addConfigInfo(dataId, group, userName, content);
+		this.configService.addConfigInfo(dataId, group, userName, content, description);
 
 		request.getSession().setAttribute("message", "提交成功!");
 		return "redirect:" + listConfig(request, response, null, null, 1, 10, modelMap);
@@ -142,13 +143,14 @@ public class AdminController {
 			HttpServletResponse response,
 			@RequestParam("dataId") String dataId,
 			@RequestParam("group") String group,
+			@RequestParam("description") String description,
 			@RequestParam("content") String content, ModelMap modelMap) {
 		response.setCharacterEncoding(Constants.ENCODE);
 
 		String remoteIp = getRemoteIP(request);
 
 		String userName = (String) request.getSession().getAttribute("user");
-		ConfigInfo configInfo = new ConfigInfo(dataId, group, userName, content);
+		ConfigInfo configInfo = new ConfigInfo(dataId, group, userName, content, description);
 		boolean checkSuccess = true;
 		String errorMessage = "参数错误";
 		if (!StringUtils.hasLength(dataId)
@@ -183,7 +185,7 @@ public class AdminController {
 		}
 		String oldContent = oldConfigInfo.getContent();
 
-		this.configService.updateConfigInfo(dataId, group, content, userName);
+		this.configService.updateConfigInfo(dataId, group, content, userName, description);
 
 		// 记录更新日志
 		updateLog.warn("更新数据成功\ndataId=" + dataId + "\ngroup=" + group
