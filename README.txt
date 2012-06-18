@@ -1,6 +1,29 @@
-»ùÓÚÌÔ±¦diamond¸ÄÔìµÄÅäÖÃ¹ÜÀí·şÎñÆ÷£¬Ö÷Òª×öÁËÈçÏÂ¸ÄÔì
-1£ºÖØĞÂÉè¼ÆÁË½çÃæ£¬»ùÓÚbootstrapÑùÊ½
-2£ºÖØĞÂÖØ¹¹ÁË¹¤³ÌµÄpom.xml,¸üĞÂjar
-3£ºÈ¥µôÁË²»±ØÒªµÄ¹¦ÄÜ´úÂë
-4£ºÏîÄ¿±àÂë¸Ä³ÉÁËUTF-8
-5£ºÊı¾İ¿â±íconfig-infoÔö¼ÓÁË×Ö¶Îusername,ÓÃÓÚ¿ØÖÆµÇÂ¼ÓÃ»§Ö»ÄÜ²Ù×÷×Ô¼ºµÄÅäÖÃÊı¾İ¡£
+åŸºäºæ·˜å®diamondæ”¹é€ çš„é…ç½®ç®¡ç†æœåŠ¡å™¨ï¼Œä¸»è¦åšäº†å¦‚ä¸‹æ”¹é€ 
+1ï¼šé‡æ–°è®¾è®¡äº†ç•Œé¢ï¼ŒåŸºäºbootstrapæ ·å¼
+2ï¼šé‡æ–°é‡æ„äº†å·¥ç¨‹çš„pom.xml,æ›´æ–°jar
+3ï¼šå»æ‰äº†ä¸å¿…è¦çš„åŠŸèƒ½ä»£ç 
+4ï¼šé¡¹ç›®ç¼–ç æ”¹æˆäº†UTF-8
+5ï¼šæ•°æ®åº“è¡¨config-infoå¢åŠ äº†å­—æ®µusername,ç”¨äºæ§åˆ¶ç™»å½•ç”¨æˆ·åªèƒ½æ“ä½œè‡ªå·±çš„é…ç½®æ•°æ®ã€‚
+
+éƒ¨ç½²ï¼š
+1ï¼šdimaond-serveræ•°æ®åº“è„šæœ¬
+CREATE TABLE `config_info` (
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `data_id` varchar(255) NOT NULL DEFAULT '',
+  `group_id` varchar(128) NOT NULL DEFAULT '',
+  `username` varchar(100) NOT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  `content` longtext NOT NULL,
+  `md5` varchar(32) NOT NULL,
+  `gmt_create` datetime NOT NULL DEFAULT '2010-05-05 00:00:00',
+  `gmt_modified` datetime NOT NULL DEFAULT '2010-05-05 00:00:00',
+  KEY `ID` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8
+
+2ï¼šå®‰è£…tomcatæœåŠ¡å™¨ï¼Œé‡‡ç”¨8080ç«¯å£ï¼Œå› ä¸ºdiamond-clienté»˜è®¤ä½¿ç”¨8080è¿æ¥æœåŠ¡å™¨ç«¯
+3ï¼šdimaond-serveræ„å»ºè·å–waråŒ…ï¼ˆmvn clean install -Pproductionï¼‰ï¼Œä¿®æ”¹waråç§°ä¸ºdiamond-server.warï¼Œ
+4ï¼šä¿®æ”¹æ•°æ®åº“è¿æ¥ï¼Œæ•°æ®åº“é…ç½®æ–‡ä»¶ä¸º:META-INF/res/jdbc-production.properties
+5ï¼šdiamond-serverè®¿é—®ç”¨æˆ·æ•°æ®å­˜æ”¾åœ¨æ–‡ä»¶:/META-INF/res/user.propertiesä¸­ï¼Œå¯ä»¥åœ¨æ­¤æ–‡ä»¶ä¸­ä¿®æ”¹ç”¨æˆ·æ•°æ®ã€‚
+6ï¼šå¯åŠ¨tomcatæœåŠ¡å™¨ã€‚
+7ï¼šå¯åŠ¨æœåŠ¡å™¨ä»¥åï¼Œdiamond-server.warè¢«è§£å‹å‡ºä¸€ä¸ªç›®å½•diamond-serverï¼Œåœ¨diamond-serverç›®å½•ä¸­åˆ›å»ºæ–‡ä»¶dimaond
+       æ–‡ä»¶æ·»åŠ å†…å®¹ä¸ºå½“å‰æœåŠ¡å™¨IPåœ°å€
