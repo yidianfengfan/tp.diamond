@@ -67,13 +67,20 @@ public class DBPersistService implements PersistService {
 	private static final ConfigInfoRowMapper CONFIG_INFO_ROW_MAPPER = new ConfigInfoRowMapper();
 
 	public void addConfigInfo(final Timestamp time, final ConfigInfo configInfo) {
-
+		final Long id = this.jt.queryForObject("SELECT MAX(ID) FROM config_info", Long.class);
+		
 		this.jt.update(
-				"insert into config_info (data_id,group_id, username, content,md5,gmt_create,gmt_modified, description) values(?,?,?,?,?,?,?,?)",
+				"insert into config_info (id, data_id,group_id, username, content,md5,gmt_create,gmt_modified, description) values(?,?,?,?,?,?,?,?,?)",
 				new PreparedStatementSetter() {
 					public void setValues(PreparedStatement ps)
 							throws SQLException {
+						
 						int index = 1;
+						if(id == null)
+							ps.setLong(index++, 1);
+						else
+							ps.setLong(index++, (Long)id + 1);
+						
 						ps.setString(index++, configInfo.getDataId());
 						ps.setString(index++, configInfo.getGroup());
 						ps.setString(index++, configInfo.getUserName());

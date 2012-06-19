@@ -74,10 +74,15 @@ public class PaginationHelper<E> {
         // 取单页数据，计算起始位置
         final int startRow = (pageNo - 1) * pageSize;
         // TODO 在数据量很大时， limit效率很低
-        final String selectSQL = sqlFetchRows + " limit " + startRow + "," + pageSize;
+        
+        String selectSQL = "";
+        if("mysql".equals(ProfileUtil.getDbType()))
+        	selectSQL = sqlFetchRows + " limit " + startRow + "," + pageSize;
+        else if("oracle".equals(ProfileUtil.getDbType()))
+        	selectSQL = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM (" + (sqlFetchRows) + ") A WHERE ROWNUM <= " + (pageSize+startRow) + ") WHERE RN >= " + (startRow + 1);
         jt.query(selectSQL, args, new ResultSetExtractor() {
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-                final List<E> pageItems = page.getPageItems();
+                final List<E> pageItems = page.getPageItems(); 
                 int currentRow = 0;
                 while (rs.next()) {
                     pageItems.add(rowMapper.mapRow(rs, currentRow++));
