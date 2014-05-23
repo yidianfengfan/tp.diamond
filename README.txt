@@ -27,3 +27,41 @@ CREATE TABLE `config_info` (
 6：启动tomcat服务器。
 7：启动服务器以后，diamond-server.war被解压出一个目录diamond-server，在diamond-server目录中创建文件dimaond
        文件添加内容为当前服务器IP地址
+
+#### production
+
+1. 数据库密码取自~/.druid
+root=root
+
+2.　请求的操作无法在使用用户映射区域打开的文件上执行
+    <configuration>
+      <webAppConfig>
+      <defaultsDescriptor>src/test/resources/webdefault.xml</defaultsDescriptor>
+     </webAppConfig>
+     </configuration>
+useFileMappedBuffer
+true --> false
+
+
+localFile    diamond/data/config-data/group/dataId
+server
+snapshot     diamond/snapshot
+
+先从localFile里取,
+mapfile.js ==> Map<String/* address */, Map<String/* dataId */, String/* group */>> localMap 若在这里面则
+diamond/data/config-data/group/dataId ==> diamond/data/config-data/${group}/dataId
+
+从local取的，此时在服务端更新客户端不会有更新。
+checkDiamondServerConfigInfo -> getProbeUpdateString -> // 非使用本地配置，才去diamond server检查
+                                                        				if (!data.isUseLocalConfigInfo()) {
+
+                                                        				}
+服务端的话就是采用session,
+用户采用properties存储　
+节点要通知，　node.properties
+http获取md5每个节点上有一个cache（本地的)
+http获取content每个节点上将db里数据写在webapp下然后直接文件返回了
+
+上面这几个感觉都不太好，　可以改进一下。　
+
+

@@ -67,11 +67,11 @@ public class Constants {
 
 	public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// 毫秒
 
-	public static final String BASE_URI = "/diamond-server";
+	public static final String BASE_URI = "";
 
-	public static final String CONFIG_HTTP_URI_FILE = "/diamond-server/config";
+	public static final String CONFIG_HTTP_URI_FILE = "/config";
 
-	public static final String HTTP_URI_ACK = "/diamond-server/client.ack";
+	public static final String HTTP_URI_ACK = "/client.ack";
 
 	public static final String ENCODE = "UTF-8";
 

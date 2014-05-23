@@ -47,6 +47,7 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -272,6 +273,8 @@ class DefaultDiamondSubscriber implements DiamondSubscriber {
 		});
 	}
 
+
+
 	protected void initHttpClient() {
 		if (MockServer.isTestMode()) {
 			return;
@@ -321,7 +324,7 @@ class DefaultDiamondSubscriber implements DiamondSubscriber {
 					return;
 				}
 				try {
-					checkLocalConfigInfo();
+                    checkLocalConfigInfo();
 					checkDiamondServerConfigInfo();
 					checkSnapshot();
 				} catch (Exception e) {

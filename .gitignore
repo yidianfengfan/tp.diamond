@@ -20,3 +20,5 @@
 /tp.diamond-client/target
 /tp.diamond-client/.classpath
 /tp.diamond-client/.project
+
+*.iml

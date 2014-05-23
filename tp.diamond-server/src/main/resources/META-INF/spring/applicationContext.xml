@@ -13,7 +13,7 @@
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:/META-INF/res/jdbc-${profiles.active}.properties" />
+		<property name="location" value="classpath:/META-INF/res/jdbc-production.properties" />
 	</bean>
 	
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
